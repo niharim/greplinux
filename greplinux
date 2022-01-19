@@ -1,0 +1,52 @@
+Syntax: grep [options] pattern [files]
+Options Description
+-c : This prints only a count of the lines that match a pattern
+-h : Display the matched lines, but do not display the filenames.
+-i : Ignores, case for matching
+-l : Displays list of a filenames only.
+-n : Display the matched lines and their line numbers.
+-v : This prints out all the lines that do not matches the pattern
+-e exp : Specifies expression with this option. Can use multiple times.
+-f file : Takes patterns from file, one per line.
+-E : Treats pattern as an extended regular expression (ERE)
+-w : Match whole word
+-o : Print only the matched parts of a matching line, with each such part on a separate output line.
+
+-A n : Prints searched line and n lines after the result.
+-B n : Prints searched line and n line before the result.
+-C n : Prints searched line and n lines after before the result
+
+CODE:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
+ void main()
+{
+ char fn[10], ptn[10], temp[200], ch;
+ FILE *fptr;
+ printf("Enter filename: ");
+ scanf("%s", fn); 
+ fptr = fopen(fn, "r");
+ if (fptr == NULL)
+ {
+ printf("Unable to open file!");
+exit(0);
+ }
+ else
+ {
+ printf("File opened\n");
+ }
+ printf("Enter the pattern: ");
+ scanf("%s", ptn); 
+ printf("Founded matches:- \n");
+ while ((ch = fgetc(fptr))!=EOF)
+ {
+ fgets(temp, 1000, fptr);
+ if ((strstr(temp, ptn))!=NULL)
+ {
+ printf("%s", temp);
+ }
+ }
+ fclose(fptr);
+}
